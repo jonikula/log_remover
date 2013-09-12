@@ -12,11 +12,13 @@ def checkDates(filelist, date):
                         moddate = os.path.getmtime(filename)
                         if datetime.datetime.fromtimestamp(moddate).day <= 15:
                                 list.append(filename) #Add over 2 weeks old files to the list
-								
+
                 elif (date.day == 15):
                         moddate = os.path.getmtime(filename)
                         if datetime.datetime.fromtimestamp(moddate).day > 15:
                                 list.append(filename)
+                else:
+                        return 0
         return list #Return the list
 
 def remover(files):
@@ -27,25 +29,26 @@ def remover(files):
         return size #Return stored file size
 
 def writer(stuff):
-		f = open('CLEANER_LOG', 'a')
-		f.write(stuff + '\n') #Write stuff to file
-		f.close()
-		return 0
-        
-		
-def main():
-        path = "D:\\teamspeak3-server_win32\\logs"
-        os.chdir(path) #Change working directory
-        date = datetime.datetime.now() #Get current date
-        files = getFiles(path) 
-        removefiles = checkDates(files, date)
-        size = remover(removefiles)
-        log = str(len(removefiles)) + " files (" + str(size) + " bytes) removed on " + str(date) #Write log
-        writer(log)
+        f = open('CLEANER_LOG', 'a')
+        f.write(stuff + '\n') #Write stuff to file
+        f.close()
         return 0
+        
+
+def main():
+        today = datetime.datetime.now().day
+        if today != 15:  #Exit the program if it's not necessary to run it. 
+                if today != 28:
+                        return 0
+        else:
+                path = "D:\\teamspeak3-server_win32\\logs"
+                os.chdir(path) #Change working directory
+                date = datetime.datetime.now() #Get current date
+                files = getFiles(path)
+                removefiles = checkDates(files, date)
+                size = remover(removefiles)
+                log = str(len(removefiles)) + " files (" + str(size) + " bytes) removed on " + str(date) #Write log
+                writer(log)
+                return 0
+
 main()
-	
-	
-	
-		
-	
