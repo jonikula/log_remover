@@ -17,8 +17,6 @@ def checkDates(filelist, date):
                         moddate = os.path.getmtime(filename)
                         if datetime.datetime.fromtimestamp(moddate).day > 15:
                                 list.append(filename)
-                else:
-                        return 0
         return list #Return the list
 
 def remover(files):
