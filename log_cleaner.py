@@ -45,6 +45,8 @@ def main():
                 files = getFiles(path)
                 removefiles = checkDates(files, date)
                 size = remover(removefiles)
+                path = "D:\\teamspeak3-server_win32"
+                os.chdir(path)
                 log = str(len(removefiles)) + " files (" + str(size) + " bytes) removed on " + str(date) #Write log
                 writer(log)
                 return 0
